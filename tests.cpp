@@ -32,3 +32,26 @@ TEST_CASE("Network Class"){
 
     CHECK(nw.addUser("yoshi", "Yoshi") == false);
 }
+
+TEST_CASE("Testing Following"){
+    Network nw;
+    nw.addUser("mario", "Mario");
+    nw.addUser("luigi", "Luigi");
+    nw.addUser("yoshi", "Yoshi");
+
+    CHECK(nw.follow("mario", "luigi") == true);
+    CHECK(nw.follow("mario", "yoshi") == true);
+    CHECK(nw.follow("luigi", "mario") == true);
+    CHECK(nw.follow("luigi", "yoshi") == true);
+    CHECK(nw.follow("yoshi", "mario") == true);
+    CHECK(nw.follow("yoshi", "luigi") == true);
+
+    CHECK(nw.addUser("wario", "Wario") == true);
+    for(int i = 2; i < 6; i++) {
+        std::string usrn = "mario" + std::to_string(i);
+        std::string dspn = "Mario " + std::to_string(i);
+        nw.addUser(usrn, dspn);
+        CHECK(nw.follow(usrn, "mario") == true);
+    }
+    CHECK(nw.follow("mario2", "luigi") == true);
+}
