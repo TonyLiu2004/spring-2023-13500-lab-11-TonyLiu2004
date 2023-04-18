@@ -1,5 +1,6 @@
 #include <iostream>
 #include "profile.h"
+#include "network.h"
 
 int main() {
     Profile p1("marco", "Marco");
@@ -13,4 +14,20 @@ int main() {
     Profile p2("tarma1", "Tarma Roving");
     std::cout << p2.getUsername() << "\n"; 
     std::cout << p2.getFullName() << "\n"; 
+    
+    std::cout << "------------------------" << "\n";
+    
+    Network nw;
+    std::cout << nw.addUser("mario", "Mario") << "\n";     // true (1)
+    std::cout << nw.addUser("luigi", "Luigi") << "\n";     // true (1)
+
+    std::cout << nw.addUser("mario", "Mario2") << "\n";    // false (0)
+    std::cout << nw.addUser("mario 2", "Mario2") << "\n";  // false (0)
+    std::cout << nw.addUser("mario-2", "Mario2") << "\n";  // false (0)
+
+    for(int i = 2; i < 20; i++)
+    std::cout << nw.addUser("mario" + std::to_string(i), 
+                "Mario" + std::to_string(i)) << "\n";   // true (1)
+
+    std::cout << nw.addUser("yoshi", "Yoshi") << "\n";     // false (0)
 }
